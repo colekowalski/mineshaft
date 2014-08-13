@@ -4,6 +4,7 @@ import (
 	"github.com/mattrobenolt/mineshaft/api"
 	"github.com/mattrobenolt/mineshaft/carbon"
 	"github.com/mattrobenolt/mineshaft/config"
+	"github.com/mattrobenolt/mineshaft/pickle"
 
 	"fmt"
 	"log"
@@ -44,5 +45,7 @@ func main() {
 
 	go carbon.ListenAndServe(conf.Carbon.Host+":"+conf.Carbon.Port, store)
 	go api.ListenAndServe(conf.Http.Host+":"+conf.Http.Port, store)
+	// TODO: add config for the pickle port
+	go pickle.ListenAndServe(conf.Http.Host+":2004", store)
 	select {}
 }
